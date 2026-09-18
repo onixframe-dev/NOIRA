@@ -19,7 +19,7 @@ export function StorySection() {
             copy={isRu ? 'NOIRA строится на простой идее: состав должен быть понятным, упаковка спокойной, а сам продукт приятно видеть дома каждый день.' : 'We designed NOIRA around a simple idea: the food should be nutritionally clear, visually calm and genuinely desirable to live with.'}
           />
           <div className={styles.metrics}>
-            <div><strong>70%+</strong><span>{isRu ? 'акцент на животном белке' : 'animal-first protein story'}</span></div>
+            <div><strong>3</strong><span>{isRu ? 'формулы' : 'formulas'}</span></div>
             <div><strong>3×</strong><span>{isRu ? 'ключевых принципа питания' : 'core nutritional pillars'}</span></div>
             <div><strong>0</strong><span>{isRu ? 'лишнего визуального шума' : 'needless visual noise'}</span></div>
           </div>

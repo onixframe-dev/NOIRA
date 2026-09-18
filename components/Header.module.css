@@ -9,7 +9,7 @@
 .actions { justify-self: end; display: flex; align-items: center; gap: 18px; }
 .cta { display: inline-flex; align-items: center; gap: 8px; color: var(--gold-soft); font-size: 12px; font-weight: 700; }
 .languageSwitch { display: flex; align-items: center; gap: 5px; color: #6f6c66; font-size: 10px; letter-spacing: .12em; }
-.languageSwitch button { border: 0; padding: 4px 2px; background: transparent; color: #77736c; cursor: pointer; font-weight: 700; }
+.languageSwitch button { border: 0; width: 44px; min-height: 44px; margin-inline: -10px; background: transparent; color: #77736c; cursor: pointer; font-weight: 700; }
 .languageSwitch button:hover, .languageSwitch .activeLanguage { color: var(--gold-soft); }
 .menuButton { display: none; background: none; border: 0; padding: 8px; cursor: pointer; }
 .mobileMenu { position: fixed; inset: var(--header-h) 0 0; background: rgba(9,9,8,.975); backdrop-filter: blur(12px); opacity: 0; pointer-events: none; transform: translateY(-12px); transition: opacity .3s ease, transform .3s ease; padding: 32px 0; }

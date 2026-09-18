@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { getSiteData } from '@/lib/site-data';
@@ -10,6 +10,7 @@ import styles from './Header.module.css';
 export function Header() {
   const [open, setOpen] = useState(false);
   const [compact, setCompact] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
   const { language, setLanguage } = useLanguage();
   const { navItems } = getSiteData(language);
   const isRu = language === 'ru';
@@ -24,6 +25,14 @@ export function Header() {
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
+  }, [open]);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && open) { setOpen(false); menuButton.current?.focus(); }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
   }, [open]);
 
   return (
@@ -44,13 +53,13 @@ export function Header() {
             <button className={language === 'en' ? styles.activeLanguage : ''} onClick={() => setLanguage('en')} type="button">EN</button>
           </div>
           <a className={styles.cta} href="#collection">{isRu ? 'Коллекция' : 'Explore'} <ArrowUpRight size={16} /></a>
-          <button className={styles.menuButton} aria-label={open ? (isRu ? 'Закрыть меню' : 'Close menu') : (isRu ? 'Открыть меню' : 'Open menu')} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
+          <button ref={menuButton} className={styles.menuButton} aria-label={open ? (isRu ? 'Закрыть меню' : 'Close menu') : (isRu ? 'Открыть меню' : 'Open menu')} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
             {open ? <X /> : <Menu />}
           </button>
         </div>
       </div>
 
-      <div className={`${styles.mobileMenu} ${open ? styles.mobileMenuOpen : ''}`} aria-hidden={!open}>
+      {open && <div className={`${styles.mobileMenu} ${styles.mobileMenuOpen}`}>
         <div className={shared.shell}>
           <nav aria-label={isRu ? 'Мобильная навигация' : 'Mobile navigation'}>
             {navItems.map((item, index) => (
@@ -59,7 +68,7 @@ export function Header() {
           </nav>
           <p>{isRu ? 'Премиальное питание для любопытных кошек.' : 'Premium nutrition for curious cats.'}</p>
         </div>
-      </div>
+      </div>}
     </header>
   );
 }

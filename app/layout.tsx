@@ -7,7 +7,8 @@ const display = Cormorant_Garamond({ subsets: ['latin', 'cyrillic'], variable: '
 const sans = Manrope({ subsets: ['latin', 'cyrillic'], variable: '--font-sans', weight: ['400', '500', '600', '700'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://noira.example'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://noira-brown.vercel.app'),
+  alternates: { canonical: '/' },
   title: 'NOIRA — премиальный корм для кошек',
   description: 'Концепт премиального бренда NOIRA: современное питание для кошек, интерактивная подача продукта и подбор формулы.',
   icons: { icon: '/favicon.svg' },

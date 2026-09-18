@@ -25,7 +25,7 @@ const copy = {
   en: {
     nav: [['Story', '#story'], ['Nutrition', '#nutrition'], ['Collection', '#collection'], ['Find your formula', '#finder'], ['Contact', '#contact']],
     products: [
-      { id: 'salmon', name: 'Salmon Formula', eyebrow: 'Everyday vitality', description: 'High-protein daily nutrition with salmon, omega 3 & 6 and essential minerals for glossy coats and bright, curious cats.', image: '/assets/pack-closed.webp', accent: '#d9b76f', facts: ['Salmon first', 'Omega 3 & 6', 'All life stages'] },
+      { id: 'salmon', name: 'Salmon Formula', eyebrow: 'Everyday vitality', description: 'High-protein daily nutrition with salmon, omega 3 & 6 and essential minerals for glossy coats and bright, curious cats.', image: '/assets/pack-closed.webp', accent: '#d9b76f', facts: ['Salmon first', 'Omega 3 & 6', 'Everyday recipe'] },
       { id: 'indoor', name: 'Indoor Balance', eyebrow: 'Calm energy', description: 'A balanced formula for indoor cats with controlled energy, quality protein and a clean, focused ingredient profile.', image: '/assets/pack-noira-black.webp', accent: '#9fb49c', facts: ['Balanced energy', 'Lean protein', 'Indoor care'] },
       { id: 'ocean', name: 'Ocean Care', eyebrow: 'Sensitive support', description: 'A fish-forward recipe designed for cats that benefit from a lighter, gentle formula with skin and coat support.', image: '/assets/pack-noira-teal.webp', accent: '#72aaa8', facts: ['Fish proteins', 'Gentle recipe', 'Coat support'] }
     ],

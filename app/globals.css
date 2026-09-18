@@ -23,6 +23,7 @@ body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--
 a { color: inherit; text-decoration: none; }
 button, input, textarea, select { font: inherit; }
 button { color: inherit; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 3px; }
 img { user-select: none; }
 ::selection { background: var(--gold); color: #111; }
 

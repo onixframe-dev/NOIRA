@@ -50,6 +50,9 @@ export function HeroExperience() {
     if (!loadAnimationFrames || !section.current || !bagClosed.current) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    const media = gsap.matchMedia();
+    let sceneScale = 1;
+    media.add({ mobile: '(max-width: 800px)', tablet: '(min-width: 801px) and (max-width: 1100px)', desktop: '(min-width: 1101px)' }, (context) => { sceneScale = context.conditions?.mobile ? .96 : context.conditions?.tablet ? .98 : 1; });
     const timeline = gsap.timeline({
       scrollTrigger: {
         trigger: section.current,
@@ -63,7 +66,8 @@ export function HeroExperience() {
     gsap.set(hidden, { opacity: 0 });
 
     timeline
-      .to(copy.current, { yPercent: -18, opacity: .28, duration: 1 }, .08)
+      .to(copy.current, { yPercent: -18, opacity: .42, duration: .38 }, .08)
+      .to(copy.current, { autoAlpha: 0, duration: .18 }, .48)
       .to(bagClosed.current, { scale: 1.05, rotate: -1.2, yPercent: -1, duration: 1 }, .04)
       .to(bagClosed.current, { opacity: 0, duration: .14 }, .25)
       .fromTo(bagOpen.current, { opacity: 0, scale: 1.025 }, { opacity: 1, scale: 1.055, duration: .18 }, .24)
@@ -71,23 +75,24 @@ export function HeroExperience() {
       .to(bagOpen.current, { opacity: 0, duration: .14 }, .40)
       .fromTo(bagPour.current, { opacity: 0, xPercent: -2, rotate: -2 }, { opacity: 1, xPercent: 0, rotate: 0, duration: .19 }, .39)
       .fromTo(bowlEmpty.current, { opacity: 0, yPercent: 20, scale: .95 }, { opacity: 1, yPercent: 0, scale: 1, duration: .20 }, .41)
-      .to(stages[0].current, { opacity: 0, y: -12, duration: .12 }, .43)
-      .to(stages[1].current, { opacity: 1, y: 0, duration: .15 }, .44)
+      .to(stages[0].current, { autoAlpha: 0, y: -12, duration: .10 }, .43)
+      .to(stages[1].current, { autoAlpha: 1, y: 0, duration: .12 }, .55)
       .to(bagPour.current, { opacity: 0, yPercent: -4, duration: .16 }, .59)
       .to(bowlEmpty.current, { opacity: 0, duration: .1 }, .58)
       .to(bowlFull.current, { opacity: 1, duration: .13 }, .58)
       .fromTo(catWalk.current, { opacity: 0, xPercent: -25, scale: .93 }, { opacity: 1, xPercent: 4, scale: 1, duration: .25 }, .60)
-      .to(stages[1].current, { opacity: 0, y: -12, duration: .12 }, .62)
-      .to(stages[2].current, { opacity: 1, y: 0, duration: .14 }, .63)
-      .to(catWalk.current, { opacity: 0, duration: .08 }, .76)
-      .fromTo(catSniff.current, { opacity: 0, xPercent: -6 }, { opacity: 1, xPercent: 4, duration: .11 }, .76)
-      .to(catSniff.current, { opacity: 0, duration: .08 }, .88)
-      .fromTo(catEat.current, { opacity: 0, xPercent: -2 }, { opacity: 1, xPercent: 4, duration: .11 }, .88)
-      .to(stages[2].current, { opacity: 0, y: -12, duration: .1 }, .88)
-      .to(stages[3].current, { opacity: 1, y: 0, duration: .11 }, .89);
+      .to(stages[1].current, { autoAlpha: 0, y: -12, duration: .10 }, .66)
+      .to(stages[2].current, { autoAlpha: 1, y: 0, duration: .12 }, .77)
+      .to(catWalk.current, { opacity: 0, xPercent: 1, scale: .985, duration: .18 }, .76)
+      .fromTo(catSniff.current, { opacity: 0, xPercent: -5, scale: .985 }, { opacity: 1, xPercent: 2, scale: sceneScale, duration: .19 }, .76)
+      .to(catSniff.current, { opacity: 0, xPercent: 1, scale: .99, duration: .18 }, .88)
+      .fromTo(catEat.current, { opacity: 0, xPercent: -3, scale: .985 }, { opacity: 1, xPercent: 2, scale: sceneScale, duration: .2 }, .88)
+      .to(stages[2].current, { autoAlpha: 0, y: -12, duration: .08 }, .89)
+      .to(stages[3].current, { autoAlpha: 1, y: 0, duration: .10 }, .98);
 
     if (orbA.current) gsap.to(orbA.current, { yPercent: -22, xPercent: 8, ease: 'none', scrollTrigger: { trigger: section.current, start: 'top top', end: 'bottom bottom', scrub: true } });
     if (orbB.current) gsap.to(orbB.current, { yPercent: 18, xPercent: -7, ease: 'none', scrollTrigger: { trigger: section.current, start: 'top top', end: 'bottom bottom', scrub: true } });
+    return () => media.revert();
   }, { scope: section, dependencies: [loadAnimationFrames] });
 
   const stageCopy = isRu
@@ -116,8 +121,8 @@ export function HeroExperience() {
             <div className={styles.halo} />
             <Image ref={bagClosed} className={`${styles.asset} ${styles.bag}`} src="/assets/pack-closed.webp" alt="NOIRA" fill priority sizes="(max-width: 900px) 72vw, 42vw" />
             {loadAnimationFrames && <>
-              <Image ref={bagOpen} className={`${styles.asset} ${styles.bag}`} src="/assets/pack-open.webp" alt="NOIRA" fill sizes="(max-width: 900px) 72vw, 42vw" />
-              <Image ref={bagPour} className={`${styles.asset} ${styles.bag}`} src="/assets/pack-pour.webp" alt="NOIRA" fill sizes="(max-width: 900px) 72vw, 42vw" />
+              <Image ref={bagOpen} className={`${styles.asset} ${styles.deferredAsset} ${styles.bag}`} src="/assets/pack-open.webp" alt="" aria-hidden fill sizes="(max-width: 900px) 72vw, 42vw" />
+              <Image ref={bagPour} className={`${styles.asset} ${styles.deferredAsset} ${styles.bag}`} src="/assets/pack-pour.webp" alt="" aria-hidden fill sizes="(max-width: 900px) 72vw, 42vw" />
               <Image ref={bowlEmpty} className={`${styles.asset} ${styles.bowl}`} src="/assets/bowl-empty.webp" alt={isRu ? 'Пустая миска NOIRA' : 'Empty NOIRA bowl'} fill sizes="(max-width: 900px) 42vw, 22vw" />
               <Image ref={bowlFull} className={`${styles.asset} ${styles.bowl}`} src="/assets/bowl-full.webp" alt={isRu ? 'Миска NOIRA с кормом' : 'NOIRA bowl with kibble'} fill sizes="(max-width: 900px) 42vw, 22vw" />
               <Image ref={catWalk} className={`${styles.asset} ${styles.cat} ${styles.catWalk}`} src="/assets/cat-walk.webp" alt={isRu ? 'Чёрный кот подходит к миске' : 'Black cat approaching food'} fill sizes="(max-width: 900px) 58vw, 28vw" />
