@@ -1,0 +1,54 @@
+.scroll { height: 430vh; position: relative; }
+.sticky { position: sticky; top: 0; height: 100svh; min-height: 700px; overflow: hidden; background: #090908; }
+.gridOverlay { position: absolute; inset: 0; opacity: .08; background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 72px 72px; mask-image: radial-gradient(circle at center, black, transparent 84%); }
+.orb { position: absolute; width: 44vw; aspect-ratio: 1; border-radius: 50%; filter: blur(66px); opacity: .065; pointer-events: none; }
+.orbA { background: var(--gold); top: -24%; right: -10%; }
+.orbB { background: #1b7773; bottom: -30%; left: -10%; }
+.layout { height: 100%; display: grid; grid-template-columns: .92fr 1.08fr; align-items: center; position: relative; z-index: 2; }
+.copy { max-width: 590px; z-index: 4; padding-top: 42px; }
+.copy h1 { font-family: var(--font-display), serif; font-size: clamp(58px, 7vw, 106px); line-height: .86; letter-spacing: -.045em; font-weight: 600; margin: 24px 0 26px; }
+.copy p { max-width: 550px; color: #b8b4aa; font-size: 16px; line-height: 1.75; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.visual { width: min(46vw, 650px); height: min(78vh, 760px); justify-self: end; position: relative; }
+.halo { position: absolute; width: 68%; aspect-ratio: 1; background: radial-gradient(circle, rgba(216,177,106,.10), rgba(216,177,106,0) 70%); border-radius: 50%; left: 16%; top: 20%; filter: blur(8px); }
+.asset { object-fit: contain; object-position: center; pointer-events: none; }
+.bag { inset: 0 !important; }
+.bowl { width: 39% !important; height: 39% !important; left: auto !important; top: auto !important; right: -1% !important; bottom: 0 !important; object-fit: contain; }
+.cat { height: 60% !important; top: auto !important; bottom: 0 !important; object-fit: contain; object-position: bottom; }
+.catWalk { width: 58% !important; left: 1% !important; }
+.catSniff { width: 60% !important; left: 10% !important; }
+.catEat { width: 61% !important; left: 13% !important; bottom: -1% !important; }
+.stageLabel { position: absolute; left: 5px; bottom: 11%; display: grid; gap: 3px; opacity: 0; transform: translateY(16px); z-index: 8; max-width: 420px; }
+.stageLabel span { font-size: 10px; color: var(--gold); letter-spacing: .2em; }
+.stageLabel strong { font-family: var(--font-display), serif; font-size: 34px; font-weight: 500; }
+.scrollHint { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; color: #85827b; font-size: 10px; text-transform: uppercase; letter-spacing: .18em; z-index: 10; }
+@media (max-width: 1024px) { .layout { grid-template-columns: .9fr 1.1fr; } .copy h1 { font-size: clamp(52px, 8vw, 82px); } }
+@media (max-width: 800px) {
+  .scroll { height: 350vh; }
+  .sticky { min-height: 620px; }
+  .layout { display: block; padding-top: 112px; }
+  .copy { max-width: 92%; padding: 0; }
+  .copy h1 { font-size: clamp(52px, 15vw, 82px); max-width: 720px; }
+  .copy p { font-size: 14px; max-width: 92%; }
+  .visual { position: absolute; width: min(88vw, 560px); height: 58vh; min-height: 420px; right: -7%; bottom: 1%; }
+  .bowl { width: 38% !important; height: 38% !important; right: 0 !important; }
+  .catWalk { left: -1% !important; }
+  .catSniff { left: 11% !important; }
+  .catEat { left: 14% !important; }
+  .stageLabel { left: 0; bottom: 5%; max-width: 52%; }
+  .stageLabel strong { font-size: 26px; }
+  .scrollHint { display: none; }
+}
+@media (max-width: 520px) {
+  .scroll { height: 330vh; }
+  .copy { max-width: 100%; }
+  .copy h1 { font-size: clamp(46px, 16vw, 68px); }
+  .actions a { width: 100%; }
+  .visual { width: 95vw; right: -17%; height: 54vh; bottom: -1%; }
+  .bowl { right: 3% !important; bottom: 0 !important; }
+  .catWalk { left: -2% !important; }
+  .catSniff { left: 10% !important; }
+  .catEat { left: 14% !important; }
+  .stageLabel { bottom: 7%; max-width: 58%; }
+}
+@media (prefers-reduced-motion: reduce) { .scroll { height: 100svh; min-height: 740px; } .asset:not(:first-of-type) { display: none; } }

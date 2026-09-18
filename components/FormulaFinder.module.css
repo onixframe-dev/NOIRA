@@ -1,0 +1,12 @@
+.section { background: #090908; }
+.grid { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 70px; }
+.tabs { display: flex; gap: 8px; margin: 34px 0 38px; flex-wrap: wrap; }
+.tabs button { border: 1px solid var(--line); background: transparent; border-radius: 999px; padding: 11px 16px; cursor: pointer; font-size: 11px; transition: all .25s ease; }
+.tabs button:hover, .tabs .active { background: var(--gold-soft); color: #15130f; border-color: var(--gold-soft); }
+.result { border-left: 1px solid rgba(216,177,106,.4); padding-left: 24px; }
+.result > span { color: var(--gold); text-transform: uppercase; font-size: 9px; letter-spacing: .18em; }
+.result h3 { font-family: var(--font-display), serif; font-size: 46px; font-weight: 500; margin: 10px 0; }
+.result p { color: var(--muted); line-height: 1.7; max-width: 520px; margin: 0 0 24px; font-size: 14px; }
+.visual { position: relative; height: 720px; min-width: 0; }
+@media (max-width: 1024px) { .grid { gap: 44px; } .visual { height: 650px; } }
+@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } .visual { height: min(112vw, 650px); order: -1; } }

@@ -1,0 +1,6 @@
+.heading { max-width: 760px; }
+.center { text-align: center; margin-inline: auto; }
+.heading h2 { margin: 18px 0; font-family: var(--font-display), serif; font-size: clamp(48px, 6.8vw, 94px); line-height: .94; letter-spacing: -.035em; font-weight: 600; }
+.heading h2 em { color: var(--gold-soft); font-weight: 500; }
+.heading p { margin: 0; color: var(--muted); max-width: 640px; font-size: 16px; line-height: 1.75; }
+@media (max-width: 520px) { .heading h2 { font-size: clamp(44px, 15vw, 66px); } }

@@ -1,0 +1,9 @@
+.section { background: #090908; }
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 66px; }
+.card { padding: 36px; border-radius: 22px; border: 1px solid var(--line); background: linear-gradient(140deg, rgba(255,255,255,.035), rgba(255,255,255,.01)); min-height: 280px; transition: transform .3s ease, border-color .3s ease, background .3s ease; }
+.card:hover { transform: translateY(-5px); border-color: rgba(216,177,106,.3); background: linear-gradient(140deg, rgba(216,177,106,.045), rgba(255,255,255,.016)); }
+.card > span { font-size: 10px; color: var(--gold); letter-spacing: .2em; }
+.card h3 { margin: 54px 0 14px; font-family: var(--font-display), serif; font-weight: 500; font-size: 36px; }
+.card p { margin: 0; color: var(--muted); line-height: 1.7; max-width: 520px; font-size: 14px; }
+@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } .card { min-height: 230px; } .card h3 { margin-top: 38px; } }
+@media (max-width: 520px) { .card { padding: 26px; } }

@@ -1,0 +1,5 @@
+.band { border-block: 1px solid var(--line); overflow: hidden; background: #0d0e0c; padding: 26px 0; }
+.track { width: max-content; display: flex; animation: marquee 28s linear infinite; }
+.track span { font-family: var(--font-display), serif; font-size: 34px; letter-spacing: .06em; white-space: nowrap; color: #c9c2b4; }
+@keyframes marquee { to { transform: translateX(-25%); } }
+@media (max-width: 520px) { .track span { font-size: 27px; } }
