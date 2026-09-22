@@ -7,7 +7,7 @@ const copy = {
     ],
     products: [
       { id: 'salmon', name: 'Salmon Formula', eyebrow: 'Энергия на каждый день', description: 'Полнорационный корм с лососем, качественным белком, омега‑3 и омега‑6 для активности, кожи и блестящей шерсти.', image: '/assets/pack-closed.webp', accent: '#d9b76f', facts: ['Лосось', 'Омега 3 & 6', 'На каждый день'] },
-      { id: 'indoor', name: 'Indoor Balance', eyebrow: 'Спокойная энергия', description: 'Сбалансированная формула для домашних кошек с умеренной калорийностью, качественным белком и понятным составом.', image: '/assets/pack-noira-black.webp', accent: '#9fb49c', facts: ['Баланс энергии', 'Белок', 'Для дома'] },
+      { id: 'indoor', name: 'Indoor Balance', eyebrow: 'Спокойная энергия', description: 'Сбалансированная формула для домашних кошек с умеренной калорийностью, качественным белком и понятным составом.', image: '/assets/hero/pack/01-pack-closed.webp', accent: '#9fb49c', facts: ['Баланс энергии', 'Белок', 'Для дома'] },
       { id: 'ocean', name: 'Ocean Care', eyebrow: 'Деликатная поддержка', description: 'Лёгкая рыбная формула для кошек, которым подходит более деликатный рацион с поддержкой кожи и шерсти.', image: '/assets/pack-noira-teal.webp', accent: '#72aaa8', facts: ['Рыбный белок', 'Мягкая формула', 'Кожа и шерсть'] }
     ],
     benefits: [
@@ -26,7 +26,7 @@ const copy = {
     nav: [['Story', '#story'], ['Nutrition', '#nutrition'], ['Collection', '#collection'], ['Find your formula', '#finder'], ['Contact', '#contact']],
     products: [
       { id: 'salmon', name: 'Salmon Formula', eyebrow: 'Everyday vitality', description: 'High-protein daily nutrition with salmon, omega 3 & 6 and essential minerals for glossy coats and bright, curious cats.', image: '/assets/pack-closed.webp', accent: '#d9b76f', facts: ['Salmon first', 'Omega 3 & 6', 'Everyday recipe'] },
-      { id: 'indoor', name: 'Indoor Balance', eyebrow: 'Calm energy', description: 'A balanced formula for indoor cats with controlled energy, quality protein and a clean, focused ingredient profile.', image: '/assets/pack-noira-black.webp', accent: '#9fb49c', facts: ['Balanced energy', 'Lean protein', 'Indoor care'] },
+      { id: 'indoor', name: 'Indoor Balance', eyebrow: 'Calm energy', description: 'A balanced formula for indoor cats with controlled energy, quality protein and a clean, focused ingredient profile.', image: '/assets/hero/pack/01-pack-closed.webp', accent: '#9fb49c', facts: ['Balanced energy', 'Lean protein', 'Indoor care'] },
       { id: 'ocean', name: 'Ocean Care', eyebrow: 'Sensitive support', description: 'A fish-forward recipe designed for cats that benefit from a lighter, gentle formula with skin and coat support.', image: '/assets/pack-noira-teal.webp', accent: '#72aaa8', facts: ['Fish proteins', 'Gentle recipe', 'Coat support'] }
     ],
     benefits: [

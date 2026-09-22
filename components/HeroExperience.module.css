@@ -1,7 +1,7 @@
 .scroll { height: 360vh; position: relative; }
 .sticky { position: sticky; top: 0; height: 100dvh; min-height: min(700px, 100svh); overflow: hidden; background: #090908; }
 .gridOverlay { position: absolute; inset: 0; opacity: .08; background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 72px 72px; mask-image: radial-gradient(circle at center, black, transparent 84%); }
-.orb { position: absolute; width: 44vw; aspect-ratio: 1; border-radius: 50%; filter: blur(66px); opacity: .065; pointer-events: none; }
+.orb { position: absolute; width: 44vw; aspect-ratio: 1; border-radius: 50%; filter: blur(66px); opacity: .043; pointer-events: none; }
 .orbA { background: var(--gold); top: -24%; right: -10%; }
 .orbB { background: #1b7773; bottom: -30%; left: -10%; }
 .layout { height: 100%; display: grid; grid-template-columns: .92fr 1.08fr; align-items: center; position: relative; z-index: 2; }
@@ -14,14 +14,14 @@
 .asset { object-fit: contain; object-position: center; pointer-events: none; }
 .deferredAsset { opacity: 0; }
 .bag { inset: 0 !important; }
-.bowl { width: 39% !important; height: 39% !important; left: auto !important; top: auto !important; right: -1% !important; bottom: 0 !important; object-fit: contain; }
+.bowl { width: 39% !important; height: 39% !important; left: auto !important; top: auto !important; right: 8% !important; bottom: -7% !important; object-fit: contain; }
 .cat { height: 60% !important; top: auto !important; bottom: 0 !important; object-fit: contain; object-position: bottom; }
-.catWalk { width: 58% !important; left: 1% !important; }
-.catSniff { width: 60% !important; left: 10% !important; }
-.catEat { width: 61% !important; left: 13% !important; bottom: -1% !important; }
-.stageLabel { position: absolute; left: 5px; bottom: 11%; display: grid; gap: 3px; opacity: 0; transform: translateY(16px); z-index: 8; max-width: 420px; }
+.catSequence { width: 60% !important; left: 8% !important; }
+.catEating { width: 60% !important; left: 8% !important; bottom: 0 !important; }
+.stageLabel { position: absolute; left: 5px; bottom: 31%; display: grid; gap: 8px; opacity: 0; transform: translateY(16px); z-index: 8; max-width: 500px; pointer-events: none; }
 .stageLabel span { font-size: 10px; color: var(--gold); letter-spacing: .2em; }
-.stageLabel strong { font-family: var(--font-display), serif; font-size: 34px; font-weight: 500; }
+.stageLabel strong { font-family: var(--font-display), serif; font-size: clamp(30px, 3.2vw, 46px); line-height: .98; font-weight: 500; }
+.stageLabel p { max-width: 460px; margin: 2px 0 0; color: #aaa69d; font-size: 14px; line-height: 1.55; }
 .scrollHint { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; color: #85827b; font-size: 10px; text-transform: uppercase; letter-spacing: .18em; z-index: 10; }
 @media (max-width: 1024px) { .layout { grid-template-columns: .9fr 1.1fr; } .copy h1 { font-size: clamp(52px, 8vw, 82px); } }
 @media (max-width: 800px) {
@@ -32,12 +32,12 @@
   .copy h1 { font-size: clamp(52px, 15vw, 82px); max-width: 720px; }
   .copy p { font-size: 14px; max-width: 92%; }
   .visual { position: absolute; width: min(88vw, 560px); height: 58dvh; min-height: 0; right: -7%; bottom: 1%; }
-  .bowl { width: 38% !important; height: 38% !important; right: 0 !important; }
-  .catWalk { left: -1% !important; }
-  .catSniff { left: 11% !important; }
-  .catEat { left: 14% !important; }
-  .stageLabel { left: 0; bottom: 5%; max-width: 52%; }
+  .bowl { width: 38% !important; height: 38% !important; right: 7% !important; bottom: -5% !important; }
+  .catSequence { left: 5% !important; }
+  .catEating { left: 5% !important; }
+  .stageLabel { left: 0; bottom: 5%; max-width: 48%; }
   .stageLabel strong { font-size: 26px; }
+  .stageLabel p { font-size: 12px; line-height: 1.45; }
   .scrollHint { display: none; }
 }
 @media (max-width: 520px) {
@@ -46,12 +46,11 @@
   .copy h1 { font-size: clamp(46px, 16vw, 68px); }
   .actions a { width: 100%; }
   .visual { width: 95vw; right: -17%; height: 54vh; bottom: -1%; }
-  .bowl { right: 3% !important; bottom: 0 !important; }
-  .catWalk { left: -2% !important; }
-  .catSniff { left: 10% !important; }
-  .catEat { left: 14% !important; }
-  .stageLabel { bottom: 7%; max-width: 58%; }
+  .bowl { right: 8% !important; bottom: -4% !important; }
+  .catSequence { left: 3% !important; }
+  .catEating { left: 3% !important; }
+  .stageLabel { bottom: 7%; max-width: 56%; }
 }
 @media (max-height: 700px) and (min-width: 801px) { .scroll { height: 360vh; } .visual { height: min(74vh, 620px); } .copy h1 { font-size: clamp(48px, 6.2vw, 76px); } }
 @media (max-height: 700px) and (max-width: 800px) { .scroll { height: 300vh; } .layout { padding-top: 84px; } .copy h1 { font-size: clamp(42px, 13vw, 58px); } .copy p { line-height: 1.5; } .visual { height: 50dvh; bottom: -4%; } .stageLabel { bottom: 3%; } }
-@media (prefers-reduced-motion: reduce) { .scroll { height: 100svh; min-height: 740px; } .asset:not(:first-of-type) { display: none; } }
+@media (prefers-reduced-motion: reduce) { .scroll { height: 100svh; min-height: 740px; } .asset { display: none; } .catEating { display: block; } .stageLabel { display: none; } .stageLabel:last-of-type { display: grid; opacity: 1; transform: none; } }
