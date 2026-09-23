@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { getSiteData } from '@/lib/site-data';
 import { SectionHeading } from './SectionHeading';
-import { PackRotator } from './PackRotator';
+import { PackCarousel } from './PackCarousel';
 import shared from '@/styles/shared.module.css';
 import styles from './FormulaFinder.module.css';
 
@@ -25,5 +25,5 @@ export function FormulaFinder() {
     <SectionHeading eyebrow={isRu ? 'Подбор формулы / 05' : 'Find your formula / 05'} title={isRu ? 'Как проходит день вашей кошки?' : 'What kind of day does your cat have?'} copy={isRu ? 'Выберите наиболее похожий профиль, чтобы увидеть формулу NOIRA для привычного ритма.' : 'Choose the closest profile to find the NOIRA formula that suits your cat’s everyday routine.'} />
     <div className={styles.tabs} role="tablist" aria-label={isRu ? 'Профиль кошки' : 'Cat profile'}>{profileKeys.map((key, index) => <button ref={(element) => { tabs.current[index] = element; }} id={`profile-tab-${key}`} key={key} role="tab" aria-controls="profile-panel" aria-selected={active === key} tabIndex={active === key ? 0 : -1} className={active === key ? styles.active : ''} onKeyDown={(event) => onTabKeyDown(event, index)} onClick={() => setActive(key)}>{finderProfiles[key].label}</button>)}</div>
     <div className={styles.result} id="profile-panel" role="tabpanel" aria-labelledby={`profile-tab-${active}`} tabIndex={0} aria-live="polite"><span>{isRu ? 'Рекомендуем' : 'Recommended'}</span><h3>{profile.title}</h3><p>{profile.copy}</p><a className={`${shared.button} ${shared.primary}`} href="#contact">{isRu ? 'Спросить о формуле' : 'Ask about the formula'}</a></div>
-  </div><div className={styles.visual}><PackRotator image={profile.image} title={profile.title} accent={accent} /></div></div></section>;
+  </div><div className={styles.visual}><PackCarousel key={active} gallery={profile.gallery} title={profile.title} accent={accent} /></div></div></section>;
 }

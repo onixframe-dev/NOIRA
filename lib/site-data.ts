@@ -1,5 +1,29 @@
 import type { Language } from '@/context/LanguageContext';
 
+const formulaGalleries = {
+  salmon: [
+    { src: '/assets/formula-gallery/salmon/front.webp', view: 'front' },
+    { src: '/assets/formula-gallery/salmon/front_left_3-4.webp', view: 'front-left' },
+    { src: '/assets/formula-gallery/salmon/left_side.webp', view: 'left' },
+    { src: '/assets/formula-gallery/salmon/back.webp', view: 'back' },
+    { src: '/assets/formula-gallery/salmon/front_right_3-4.webp', view: 'front-right' },
+  ],
+  indoor: [
+    { src: '/assets/formula-gallery/indoor/front.webp', view: 'front' },
+    { src: '/assets/formula-gallery/indoor/front_left_3-4.webp', view: 'front-left' },
+    { src: '/assets/formula-gallery/indoor/left_side.webp', view: 'left' },
+    { src: '/assets/formula-gallery/indoor/back.webp', view: 'back' },
+    { src: '/assets/formula-gallery/indoor/front_right_3-4.webp', view: 'front-right' },
+  ],
+  ocean: [
+    { src: '/assets/formula-gallery/ocean/front.webp', view: 'front' },
+    { src: '/assets/formula-gallery/ocean/front_left_3-4.webp', view: 'front-left' },
+    { src: '/assets/formula-gallery/ocean/left_side.webp', view: 'left' },
+    { src: '/assets/formula-gallery/ocean/back.webp', view: 'back' },
+    { src: '/assets/formula-gallery/ocean/front_right_3-4.webp', view: 'front-right' },
+  ],
+} as const;
+
 const copy = {
   ru: {
     nav: [
@@ -17,9 +41,9 @@ const copy = {
       ['04', 'Ничего лишнего', 'Понятная формула, аккуратная подача и минимум визуального шума. Этот принцип объединяет продукт и бренд.']
     ],
     finder: {
-      indoor: { label: 'Домашний', title: 'Indoor Balance', copy: 'Для кошек с невысокой активностью, которым нужен полноценный рацион с контролируемой энергетической ценностью.', image: '/assets/pack-noira-black.webp' },
-      active: { label: 'Активный', title: 'Salmon Formula', copy: 'Для любопытных и активных кошек, которым подходит рацион с качественным белком и омега‑жирными кислотами.', image: '/assets/pack-closed.webp' },
-      sensitive: { label: 'Чувствительный', title: 'Ocean Care', copy: 'Более деликатная рыбная формула для кошек, которым лучше подходит простой и лёгкий рацион.', image: '/assets/pack-noira-teal.webp' }
+      indoor: { label: 'Домашний', title: 'Indoor Balance', copy: 'Для кошек с невысокой активностью, которым нужен полноценный рацион с контролируемой энергетической ценностью.', image: '/assets/pack-noira-black.webp', gallery: formulaGalleries.indoor },
+      active: { label: 'Активный', title: 'Salmon Formula', copy: 'Для любопытных и активных кошек, которым подходит рацион с качественным белком и омега‑жирными кислотами.', image: '/assets/pack-closed.webp', gallery: formulaGalleries.salmon },
+      sensitive: { label: 'Чувствительный', title: 'Ocean Care', copy: 'Более деликатная рыбная формула для кошек, которым лучше подходит простой и лёгкий рацион.', image: '/assets/pack-noira-teal.webp', gallery: formulaGalleries.ocean }
     }
   },
   en: {
@@ -36,9 +60,9 @@ const copy = {
       ['04', 'Nothing loud, nothing random', 'A focused ingredient story, clear benefits and no visual clutter. The same principle shapes the food and the brand.']
     ],
     finder: {
-      indoor: { label: 'Indoor', title: 'Indoor Balance', copy: 'For lower-activity cats who need complete nutrition with measured energy and a steady daily routine.', image: '/assets/pack-noira-black.webp' },
-      active: { label: 'Active', title: 'Salmon Formula', copy: 'For curious, energetic cats who thrive on high-quality protein and omega-rich nutrition.', image: '/assets/pack-closed.webp' },
-      sensitive: { label: 'Sensitive', title: 'Ocean Care', copy: 'A gentler fish-forward direction for cats that benefit from a simpler, lighter-feeling recipe.', image: '/assets/pack-noira-teal.webp' }
+      indoor: { label: 'Indoor', title: 'Indoor Balance', copy: 'For lower-activity cats who need complete nutrition with measured energy and a steady daily routine.', image: '/assets/pack-noira-black.webp', gallery: formulaGalleries.indoor },
+      active: { label: 'Active', title: 'Salmon Formula', copy: 'For curious, energetic cats who thrive on high-quality protein and omega-rich nutrition.', image: '/assets/pack-closed.webp', gallery: formulaGalleries.salmon },
+      sensitive: { label: 'Sensitive', title: 'Ocean Care', copy: 'A gentler fish-forward direction for cats that benefit from a simpler, lighter-feeling recipe.', image: '/assets/pack-noira-teal.webp', gallery: formulaGalleries.ocean }
     }
   }
 } as const;

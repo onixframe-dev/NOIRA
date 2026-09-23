@@ -1,0 +1,45 @@
+.gallery { width: 100%; height: 100%; display: grid; grid-template-rows: minmax(0, 1fr) auto; min-height: 0; }
+.stage { position: relative; display: grid; place-items: center; min-height: 0; overflow: hidden; outline: none; cursor: zoom-in; touch-action: pan-y; user-select: none; }
+.stage:active { cursor: grabbing; }
+.stage:focus-visible { outline: 1px solid color-mix(in srgb, var(--gallery-accent), transparent 30%); outline-offset: -1px; border-radius: var(--radius); }
+.orbit { position: absolute; width: min(72%, 500px); aspect-ratio: 1; border: 1px solid var(--line); border-radius: 50%; opacity: .58; }
+.orbit::after { content: ''; position: absolute; inset: 15%; border: 1px solid color-mix(in srgb, var(--gallery-accent), transparent 76%); border-radius: inherit; }
+.glow { position: absolute; width: 62%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--gallery-accent), transparent 89%), transparent 68%); }
+.pack { position: absolute; z-index: 2; width: auto; height: clamp(430px, 43vw, 590px); max-width: 78%; max-height: 90%; object-fit: contain; transform: translateX(var(--drag-x, 0)); transition: transform .18s ease; filter: drop-shadow(0 28px 36px rgba(0,0,0,.24)); }
+.stage:hover .pack:last-child { transform: translateX(var(--drag-x, 0)) scale(1.01); }
+.enterRight { animation: enter-right .46s cubic-bezier(.22,.7,.25,1) both; }
+.enterLeft { animation: enter-left .46s cubic-bezier(.22,.7,.25,1) both; }
+.exitLeft { animation: exit-left .46s cubic-bezier(.22,.7,.25,1) both; }
+.exitRight { animation: exit-right .46s cubic-bezier(.22,.7,.25,1) both; }
+.controls { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 20px; min-height: 68px; padding: 4px 8px 0; }
+.status { display: flex; align-items: center; gap: 10px; color: #aaa69d; font-size: 9px; letter-spacing: .16em; }
+.progress { display: flex; align-items: center; gap: 4px; }
+.progress button { width: 25px; height: 20px; padding: 0; border: 0; background: transparent; cursor: pointer; position: relative; }
+.progress button::after { content: ''; position: absolute; inset: 9px 0 auto; height: 1px; background: rgba(255,255,255,.18); transition: background .25s ease, transform .25s ease; }
+.progress button:hover::after, .progress .current::after { background: var(--gallery-accent); transform: scaleY(2); }
+.dragHint { justify-self: center; color: #77736c; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; text-align: center; }
+.touchHint { display: none; }
+.arrows { display: flex; gap: 8px; }
+.arrows button { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(255,255,255,.13); background: rgba(9,9,8,.72); color: #ddd6c9; cursor: pointer; transition: border-color .25s ease, color .25s ease, transform .25s ease; }
+.arrows button:hover { border-color: var(--gallery-accent); color: var(--gallery-accent); transform: translateY(-2px); }
+.modal { position: fixed; z-index: 500; inset: 0; display: grid; place-items: center; padding: clamp(18px, 4vw, 56px); background: rgba(4,4,4,.94); backdrop-filter: blur(12px); animation: modal-in .3s ease both; }
+.modalPanel { width: min(1180px, 100%); height: min(920px, 100%); min-height: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; }
+.modalStage { min-height: 0; position: relative; display: grid; place-items: center; overflow: hidden; outline: none; touch-action: pan-y; user-select: none; cursor: grab; }
+.modalStage:active { cursor: grabbing; }
+.modalGlow { position: absolute; width: min(62vh, 62vw); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--gallery-accent), transparent 88%), transparent 68%); }
+.modalPack { position: relative; z-index: 2; width: auto; height: min(78vh, 790px); max-width: 92%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 34px 52px rgba(0,0,0,.38)); }
+.closeButton { position: absolute; z-index: 3; top: max(20px, env(safe-area-inset-top)); right: max(20px, env(safe-area-inset-right)); width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(255,255,255,.18); background: rgba(9,9,8,.74); color: var(--text); cursor: pointer; }
+.modalControls { min-height: 64px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 24px; }
+.modalControls > span { justify-self: center; color: #858078; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; }
+@keyframes modal-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes enter-right { from { opacity: 0; transform: translateX(22px) scale(.985); } to { opacity: 1; transform: translateX(0) scale(1); } }
+@keyframes enter-left { from { opacity: 0; transform: translateX(-22px) scale(.985); } to { opacity: 1; transform: translateX(0) scale(1); } }
+@keyframes exit-left { from { opacity: 1; transform: translateX(0) scale(1); } to { opacity: 0; transform: translateX(-22px) scale(.985); } }
+@keyframes exit-right { from { opacity: 1; transform: translateX(0) scale(1); } to { opacity: 0; transform: translateX(22px) scale(.985); } }
+@media (pointer: coarse) { .stage { cursor: default; } .mouseHint { display: none; } .touchHint { display: inline; } .stage:hover .pack:last-child { transform: translateX(var(--drag-x, 0)); } }
+@media (min-width: 900px) and (max-width: 1199px) { .pack { height: clamp(390px, 45vw, 530px); } .controls { gap: 14px; } .dragHint { display: none; } }
+@media (max-width: 899px) { .pack { height: min(52svh, 520px); max-width: 70%; max-height: 88%; } .orbit { width: min(68%, 470px); } }
+@media (max-width: 599px) { .stage { min-height: 410px; } .pack { width: min(78vw, 360px); height: auto; max-width: none; max-height: 88%; } .orbit { width: min(88vw, 400px); } .controls { grid-template-columns: 1fr auto; row-gap: 8px; padding-inline: 0; } .status { min-width: 0; } .progress button { width: clamp(18px, 6vw, 25px); } .dragHint { grid-column: 1 / -1; grid-row: 2; justify-self: start; } .arrows button { width: 44px; height: 44px; } }
+@media (max-width: 599px) { .modal { padding: 72px 14px 18px; } .modalPanel { height: 100%; } .modalPack { width: min(94vw, 520px); height: auto; max-height: 76vh; } .modalControls { grid-template-columns: 1fr auto; gap: 12px; } .modalControls > span { display: none; } .modalControls .progress button { width: clamp(16px, 5vw, 23px); } }
+@media (max-width: 374px) { .stage { min-height: 380px; } .pack { width: min(74vw, 320px); } .dragHint { font-size: 8px; } }
+@media (prefers-reduced-motion: reduce) { .pack { animation-duration: .01ms !important; transition-duration: .01ms !important; } .arrows button { transition: none; } }
