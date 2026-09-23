@@ -11,12 +11,14 @@
 .languageSwitch { display: flex; align-items: center; gap: 5px; color: #6f6c66; font-size: 10px; letter-spacing: .12em; }
 .languageSwitch button { border: 0; width: 44px; min-height: 44px; margin-inline: -10px; background: transparent; color: #77736c; cursor: pointer; font-weight: 700; }
 .languageSwitch button:hover, .languageSwitch .activeLanguage { color: var(--gold-soft); }
-.menuButton { display: none; background: none; border: 0; padding: 8px; cursor: pointer; }
-.mobileMenu { position: fixed; inset: var(--header-h) 0 0; background: rgba(9,9,8,.975); backdrop-filter: blur(12px); opacity: 0; pointer-events: none; transform: translateY(-12px); transition: opacity .3s ease, transform .3s ease; padding: 32px 0; }
-.mobileMenuOpen { opacity: 1; pointer-events: auto; transform: none; }
+.menuButton { display: none; width: 44px; height: 44px; place-items: center; background: none; border: 0; padding: 0; cursor: pointer; }
+.mobileMenu { position: fixed; inset: var(--header-h) 0 0; background: #090908; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-12px); transition: opacity .3s ease, transform .3s ease, visibility 0s linear .3s; padding: 32px 0 calc(32px + env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: contain; }
+.mobileMenuOpen { opacity: 1; visibility: visible; pointer-events: auto; transform: none; transition-delay: 0s; }
 .mobileMenu nav { display: grid; }
 .mobileMenu nav a { display: flex; align-items: baseline; gap: 18px; padding: 20px 0; border-bottom: 1px solid var(--line); font-family: var(--font-display), serif; font-size: clamp(30px, 8vw, 54px); }
 .mobileMenu nav span { font-family: var(--font-sans); font-size: 10px; color: var(--gold); letter-spacing: .18em; }
 .mobileMenu p { color: var(--muted); margin-top: 30px; }
-@media (max-width: 1024px) { .desktopNav, .cta { display: none; } .menuButton { display: block; } .inner { grid-template-columns: 1fr auto; } }
-@media (max-width: 520px) { .brand { font-size: 21px; gap: 9px; } .brandMark { width: 31px; height: 31px; } .actions { gap: 9px; } }
+@media (max-width: 1199px) { .desktopNav, .cta { display: none; } .menuButton { display: grid; } .inner { grid-template-columns: 1fr auto; } }
+@media (max-width: 767px) { .header { padding-top: env(safe-area-inset-top); height: calc(var(--header-h) + env(safe-area-inset-top)); } .mobileMenu { inset-block-start: calc(var(--header-h) + env(safe-area-inset-top)); } }
+@media (max-width: 479px) { .brand { font-size: 21px; gap: 9px; } .brandMark { width: 31px; height: 31px; } .actions { gap: 8px; } .languageSwitch button { width: 40px; margin-inline: -9px; } .mobileMenu nav a { font-size: clamp(30px, 10vw, 46px); padding-block: 17px; } }
+@media (max-width: 374px) { .brand { font-size: 19px; } .brandMark { width: 29px; height: 29px; } .actions { gap: 4px; } }

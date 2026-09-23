@@ -9,4 +9,8 @@
 .textLink { display: inline-flex; gap: 8px; align-items: center; font-size: 13px; color: var(--gold-soft); font-weight: 700; white-space: nowrap; }
 .eyebrow { display: inline-flex; gap: 10px; align-items: center; color: var(--gold-soft); text-transform: uppercase; letter-spacing: .18em; font-size: 11px; font-weight: 700; }
 .eyebrow::before { content: ''; width: 26px; height: 1px; background: currentColor; opacity: .75; }
-@media (max-width: 800px) { .section { padding: 96px 0; } }
+@media (hover: none), (pointer: coarse) { .button:hover { transform: none; } }
+@media (min-width: 900px) and (max-width: 1199px) { .section { padding: 116px 0; } }
+@media (min-width: 600px) and (max-width: 899px) { .section { padding: 96px 0; } }
+@media (min-width: 480px) and (max-width: 599px) { .section { padding: 84px 0; } }
+@media (max-width: 479px) { .section { padding: 72px 0; } }

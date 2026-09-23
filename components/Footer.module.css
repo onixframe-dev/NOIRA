@@ -5,5 +5,6 @@
 .grid nav { display: flex; flex-wrap: wrap; gap: 12px 20px; }
 .grid nav a { color: #aaa69e; font-size: 11px; }
 .grid nav a:hover { color: var(--text); }
-.meta { display: grid; gap: 8px; text-align: right; color: #77746d; font-size: 9px; text-transform: uppercase; letter-spacing: .13em; }
-@media (max-width: 800px) { .grid { grid-template-columns: 1fr; align-items: start; } .meta { text-align: left; } }
+.meta { display: grid; gap: 8px; text-align: right; color: #918d85; font-size: 9px; text-transform: uppercase; letter-spacing: .13em; }
+@media (max-width: 899px) { .grid { grid-template-columns: 1fr; align-items: start; gap: 30px; } .meta { text-align: left; } }
+@media (max-width: 599px) { .footer { padding: 44px 0 calc(36px + env(safe-area-inset-bottom)); } .brand > span { font-size: 36px; } .brand p { max-width: 300px; font-size: 13px; line-height: 1.55; } .grid nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 24px; } .grid nav a { min-height: 44px; display: flex; align-items: center; font-size: 12px; } }

@@ -27,69 +27,84 @@ export function HeroExperience() {
   const orbB = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    heroFrames.forEach((source) => { const image = new window.Image(); image.src = source; });
+    heroFrames.slice(0, 3).forEach((source) => { const image = new window.Image(); image.src = source; });
   }, []);
 
   useGSAP(() => {
     if (!section.current || pack.current.length !== packFrames.length || bowls.current.length !== bowlFrames.length || cat.current.length !== catFrames.length) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const hidden = [...pack.current.slice(1), ...bowls.current, ...cat.current, ...labels.current];
-    gsap.set(hidden, { autoAlpha: 0 });
-    const timeline = gsap.timeline({
-      scrollTrigger: { trigger: section.current, start: 'top top', end: 'bottom bottom', scrub: 0.7 },
+    const media = gsap.matchMedia();
+    media.add({
+      desktop: '(min-width: 1200px)',
+      tablet: '(min-width: 768px) and (max-width: 1199px)',
+      mobile: '(max-width: 767px) and (min-height: 550px)',
+      compact: '(max-width: 520px)',
+      landscapePhone: '(max-width: 932px) and (max-height: 549px)',
+    }, (context) => {
+      const conditions = context.conditions as Record<string, boolean>;
+      const isMobile = Boolean(conditions.mobile);
+      // Phones use the same animation geometry and frame sequence as tablets.
+      const isCompact = Boolean(conditions.compact) && !isMobile;
+      const isLandscapePhone = Boolean(conditions.landscapePhone);
+      const hidden = [...pack.current.slice(1), ...bowls.current, ...cat.current, ...labels.current];
+      gsap.set(hidden, { autoAlpha: 0 });
+
+      if (isLandscapePhone) return;
+
+      const timeline = gsap.timeline({
+        scrollTrigger: { trigger: section.current, start: 'top top', end: 'bottom bottom', scrub: isMobile ? 0.12 : 0.7 },
+      });
+      const swap = (hide: Element | null | undefined, show: Element | null | undefined, at: number) => {
+        if (hide) timeline.set(hide, { autoAlpha: 0 }, at);
+        if (show) timeline.set(show, { autoAlpha: 1 }, at);
+      };
+      const switchCopy = (from: number, to: number, at: number) => {
+        timeline.to(labels.current[from], { autoAlpha: 0, y: -10, duration: 0.04 }, at);
+        timeline.set(labels.current, { autoAlpha: 0 }, at + 0.04);
+        timeline.fromTo(labels.current[to], { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.06 }, at + 0.05);
+      };
+
+      if (isCompact) timeline.set(pack.current[0], { yPercent: 40, scale: 0.84 }, 0);
+
+      timeline
+        .to(copy.current, { yPercent: -12, autoAlpha: 0, duration: 0.07 }, 0.04)
+        .to(pack.current[0], { scale: 1.05, rotate: -1, yPercent: isCompact ? 40 : 0, duration: 0.18 }, 0.04);
+      timeline.fromTo(labels.current[0], { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.14 }, 0.12);
+      swap(pack.current[0], pack.current[1], 0.22);
+      if (isCompact) timeline.set(pack.current[1], { xPercent: -28, yPercent: -5, scale: 0.88, transformOrigin: '100% 100%' }, 0.22);
+      switchCopy(0, 1, 0.23);
+      swap(pack.current[1], pack.current[2], 0.38);
+      if (isCompact) timeline.set(pack.current[2], { xPercent: -18, yPercent: -5, scale: 0.88, transformOrigin: '100% 100%' }, 0.38);
+
+      timeline.set(bowls.current[0], { autoAlpha: 1, yPercent: 12, xPercent: isCompact ? 0 : 34, scale: 1 }, 0.38);
+      swap(bowls.current[0], bowls.current[1], 0.5);
+      timeline.set(bowls.current[1], { xPercent: isCompact ? 0 : 34, yPercent: 0 }, 0.5);
+      swap(pack.current[2], pack.current[1], 0.5);
+      timeline.set(pack.current[1], { yPercent: 1 }, 0.5);
+
+      cat.current.slice(0, 6).forEach((frame, index) => {
+        const start = 0.62 + index * 0.05;
+        swap(index ? cat.current[index - 1] : null, frame, start);
+        timeline.set(frame, { xPercent: isCompact && index >= 4 ? 50 : index * 4, yPercent: isCompact ? -30 : 0 }, start);
+      });
+      timeline.set(pack.current[1], { autoAlpha: 0 }, 0.61);
+      timeline.set(bowls.current[1], { xPercent: isCompact ? 0 : 34, yPercent: isCompact ? 20 : 0 }, 0.64);
+      switchCopy(1, 2, 0.53);
+      switchCopy(2, 3, 0.64);
+      switchCopy(3, 4, 0.75);
+      timeline.set(cat.current.slice(0, 6), { autoAlpha: 0 }, 0.94).set(bowls.current[1], { autoAlpha: 0 }, 0.94).set(cat.current[6], { autoAlpha: 1, xPercent: 54, yPercent: isCompact ? -30 : 0 }, 0.94);
+      switchCopy(4, 5, 0.86);
+
+      [orbA.current, orbB.current].forEach((orb, index) => orb && gsap.to(orb, {
+        yPercent: index ? 18 : -22,
+        xPercent: index ? -7 : 8,
+        ease: 'none',
+        scrollTrigger: { trigger: section.current, start: 'top top', end: 'bottom bottom', scrub: true },
+      }));
     });
-    const swap = (hide: Element | null | undefined, show: Element | null | undefined, at: number) => {
-      if (hide) timeline.set(hide, { autoAlpha: 0 }, at);
-      if (show) timeline.set(show, { autoAlpha: 1 }, at);
-    };
-    const switchCopy = (from: number, to: number, at: number) => {
-      timeline.to(labels.current[from], { autoAlpha: 0, y: -10, duration: 0.04 }, at);
-      timeline.set(labels.current, { autoAlpha: 0 }, at + 0.04);
-      timeline.fromTo(labels.current[to], { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.06 }, at + 0.05);
-    };
 
-    timeline
-      .to(copy.current, { yPercent: -18, autoAlpha: 0, duration: 0.24 }, 0.05)
-      .to(pack.current[0], { scale: 1.05, rotate: -1, duration: 0.18 }, 0.04);
-    timeline.fromTo(labels.current[0], { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.14 }, 0.12);
-    swap(pack.current[0], pack.current[1], 0.22);
-    switchCopy(0, 1, 0.23);
-    swap(pack.current[1], pack.current[2], 0.38);
-
-    // The bowl states deliberately switch at the same scroll position: no blended double exposure.
-    // Lower only the empty bowl during the pour, so the falling kibble lands inside it.
-    timeline.set(bowls.current[0], { autoAlpha: 1, yPercent: 12, xPercent: 34, scale: 1 }, 0.38);
-    swap(bowls.current[0], bowls.current[1], 0.5);
-    timeline.set(bowls.current[1], { xPercent: 34, yPercent: 0 }, 0.5);
-    // Keep an opened pack on screen once the bowl is full, rather than leaving an empty composition.
-    swap(pack.current[2], pack.current[1], 0.5);
-    timeline.set(pack.current[1], { yPercent: 1 }, 0.5);
-
-    cat.current.slice(0, 6).forEach((frame, index) => {
-      const start = 0.64 + index * 0.06;
-      swap(index ? cat.current[index - 1] : null, frame, start);
-      timeline.set(frame, { xPercent: index * 4 }, start);
-    });
-    timeline.set(pack.current[1], { autoAlpha: 0 }, 0.64);
-    // The bowl stays fixed; the successive cat frames move closer to it instead.
-    timeline.set(bowls.current[1], { xPercent: 34 }, 0.64);
-    switchCopy(1, 2, 0.6);
-    switchCopy(2, 3, 0.72);
-    switchCopy(3, 4, 0.84);
-
-    // The last source frame already includes its own bowl, so hide both separate layers first.
-    // The integrated eating PNG has its bowl drawn farther left inside the canvas.
-    // Offset the whole frame so that bowl lands on the previous bowl position.
-    timeline.set(cat.current[5], { autoAlpha: 0 }, 1.0).set(bowls.current[1], { autoAlpha: 0 }, 1.0).set(cat.current[6], { autoAlpha: 1, xPercent: 54 }, 1.0);
-    switchCopy(4, 5, 0.98);
-
-    [orbA.current, orbB.current].forEach((orb, index) => orb && gsap.to(orb, {
-      yPercent: index ? 18 : -22,
-      xPercent: index ? -7 : 8,
-      ease: 'none',
-      scrollTrigger: { trigger: section.current, start: 'top top', end: 'bottom bottom', scrub: true },
-    }));
+    return () => media.revert();
   }, { scope: section });
 
   const sceneCopy = heroCopy[isRu ? 'ru' : 'en'];
@@ -110,13 +125,13 @@ export function HeroExperience() {
               <a className={`${shared.button} ${shared.ghost}`} href="#story">{isRu ? 'Наша философия' : 'Our philosophy'}</a>
             </div>
           </div>
-          <div className={styles.visual} aria-label={isRu ? 'Анимация кормления NOIRA' : 'Animated NOIRA feeding sequence'}>
+          <div className={styles.visual} role="img" aria-label={isRu ? 'Анимация кормления NOIRA' : 'Animated NOIRA feeding sequence'}>
             <div className={styles.halo} />
-            {packFrames.map((source, index) => <Image key={source} ref={(node) => { if (node) pack.current[index] = node; }} className={`${styles.asset} ${styles.bag}`} src={source} alt={index === 0 ? 'NOIRA' : ''} aria-hidden={index > 0} fill priority={index === 0} loading={index ? 'eager' : undefined} sizes="(max-width: 900px) 72vw, 42vw" />)}
-            {bowlFrames.map((source, index) => <Image key={source} ref={(node) => { if (node) bowls.current[index] = node; }} className={`${styles.asset} ${styles.bowl}`} src={source} alt={index === 0 ? (isRu ? 'Пустая миска NOIRA' : 'Empty NOIRA bowl') : (isRu ? 'Миска NOIRA с кормом' : 'NOIRA bowl with kibble')} fill loading="eager" sizes="(max-width: 900px) 42vw, 22vw" />)}
-            {catFrames.map((source, index) => <Image key={source} ref={(node) => { if (node) cat.current[index] = node; }} className={`${styles.asset} ${styles.cat} ${index === 6 ? styles.catEating : styles.catSequence}`} src={source} alt={index === 0 ? (isRu ? 'Чёрный кот подходит к миске' : 'Black cat approaching food') : ''} aria-hidden={index > 0} fill loading="eager" sizes="(max-width: 900px) 58vw, 28vw" />)}
+            {packFrames.map((source, index) => <Image key={source} ref={(node) => { if (node) pack.current[index] = node; }} className={`${styles.asset} ${styles.bag} ${index === 0 ? styles.initialBag : ''} ${index === 2 ? styles.pourBag : ''}`} src={source} alt={index === 0 ? 'NOIRA' : ''} aria-hidden={index > 0} fill priority={index === 0} loading={index ? 'lazy' : undefined} sizes="(max-width: 599px) 90vw, (max-width: 899px) 68vw, (max-width: 1199px) 54vw, 42vw" />)}
+            {bowlFrames.map((source, index) => <Image key={source} ref={(node) => { if (node) bowls.current[index] = node; }} className={`${styles.asset} ${styles.bowl}`} src={source} alt={index === 0 ? (isRu ? 'Пустая миска NOIRA' : 'Empty NOIRA bowl') : (isRu ? 'Миска NOIRA с кормом' : 'NOIRA bowl with kibble')} fill loading="lazy" sizes="(max-width: 599px) 28vw, (max-width: 899px) 24vw, 22vw" />)}
+            {catFrames.map((source, index) => <Image key={source} ref={(node) => { if (node) cat.current[index] = node; }} className={`${styles.asset} ${styles.cat} ${index === 6 ? styles.catEating : styles.catSequence} ${index === 5 ? styles.catSniff : ''}`} src={source} alt={index === 0 ? (isRu ? 'Чёрный кот подходит к миске' : 'Black cat approaching food') : ''} aria-hidden={index > 0} fill loading="lazy" sizes="(max-width: 599px) 62vw, (max-width: 899px) 58vw, 28vw" />)}
           </div>
-          {sceneCopy.map(([number, title, description], index) => <div ref={(node) => { if (node) labels.current[index] = node; }} className={styles.stageLabel} key={number}><span>{number}</span><strong>{title}</strong><p>{description}</p></div>)}
+          {sceneCopy.map(([number, title, description], index) => <div ref={(node) => { if (node) labels.current[index] = node; }} className={`${styles.stageLabel} ${styles[`stageLabel${index}`]}`} key={number}><span>{number}</span><strong>{title}</strong><p>{description}</p></div>)}
         </div>
         <div className={styles.scrollHint}><ArrowDown size={16} /> {isRu ? 'Прокрутите, чтобы накормить' : 'Scroll to feed'}</div>
       </div>

@@ -4,6 +4,6 @@
 .meta div { padding-top: 16px; border-top: 1px solid var(--line); display: grid; gap: 8px; }
 .meta span { font-size: 9px; text-transform: uppercase; color: var(--muted); letter-spacing: .16em; }
 .meta a, .meta strong { font-size: 13px; font-weight: 600; }
-@media (max-width: 1024px) { .grid { gap: 44px; } }
-@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } .meta { margin-top: 36px; } }
-@media (max-width: 520px) { .meta { grid-template-columns: 1fr; } }
+@media (min-width: 900px) and (max-width: 1199px) { .grid { gap: 44px; } }
+@media (max-width: 899px) { .grid { grid-template-columns: 1fr; gap: 44px; } .meta { margin-top: 36px; } }
+@media (max-width: 479px) { .meta { grid-template-columns: 1fr; } }

@@ -8,5 +8,6 @@
 .result h3 { font-family: var(--font-display), serif; font-size: 46px; font-weight: 500; margin: 10px 0; }
 .result p { color: var(--muted); line-height: 1.7; max-width: 520px; margin: 0 0 24px; font-size: 14px; }
 .visual { position: relative; height: 720px; min-width: 0; }
-@media (max-width: 1024px) { .grid { gap: 44px; } .visual { height: 650px; } }
-@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } .visual { height: min(112vw, 650px); order: 0; margin-top: 10px; } }
+@media (min-width: 900px) and (max-width: 1199px) { .grid { grid-template-columns: .95fr 1.05fr; gap: 38px; } .visual { height: 610px; } .result h3 { font-size: 40px; } }
+@media (min-width: 600px) and (max-width: 899px) { .grid { grid-template-columns: 1fr; gap: 42px; } .visual { height: min(66svh, 620px); } }
+@media (max-width: 599px) { .grid { grid-template-columns: 1fr; gap: 28px; } .tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-block: 28px 32px; padding-bottom: 2px; } .tabs::-webkit-scrollbar { display: none; } .tabs button { min-height: 44px; flex: 1 0 auto; padding-inline: 18px; } .result { padding-left: 18px; } .result h3 { font-size: clamp(34px, 10vw, 44px); } .result p { font-size: 15px; line-height: 1.6; } .result a { width: 100%; } .visual { height: clamp(470px, 68svh, 620px); margin-top: 4px; } }

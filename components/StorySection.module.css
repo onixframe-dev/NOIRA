@@ -2,13 +2,15 @@
 .grid { display: grid; grid-template-columns: .86fr 1.14fr; gap: 76px; align-items: center; }
 .photo { min-height: 720px; position: relative; margin: 0; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); }
 .photo img { object-fit: cover; transition: transform .8s ease; }
-.photo:hover img { transform: scale(1.025); }
+@media (hover: hover) and (pointer: fine) { .photo:hover img { transform: scale(1.025); } }
 .photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 58%, rgba(0,0,0,.5)); }
 .photo figcaption { position: absolute; z-index: 2; bottom: 24px; left: 24px; right: 24px; color: #ded8cd; font-size: 12px; }
 .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 54px; }
 .metrics div { padding: 20px 0; border-top: 1px solid var(--line); }
 .metrics strong { display: block; font-family: var(--font-display), serif; font-size: 38px; color: var(--gold-soft); font-weight: 500; }
 .metrics span { display: block; margin-top: 8px; color: var(--muted); font-size: 11px; line-height: 1.5; }
-@media (max-width: 1024px) { .grid { gap: 44px; } }
-@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } .photo { min-height: min(120vw, 680px); order: -1; } .metrics { margin-top: 36px; } }
-@media (max-width: 520px) { .metrics { grid-template-columns: 1fr; } }
+@media (min-width: 900px) and (max-width: 1199px) { .grid { gap: 44px; grid-template-columns: .94fr 1.06fr; } .photo { min-height: 620px; } }
+@media (max-width: 899px) { .grid { grid-template-columns: 1fr; gap: 42px; } .photo { min-height: min(92vw, 620px); } .metrics { margin-top: 36px; } }
+@media (min-width: 390px) and (max-width: 599px) { .metrics { grid-template-columns: repeat(3, 1fr); gap: 10px; } .metrics strong { font-size: 32px; } }
+@media (max-width: 389px) { .metrics { grid-template-columns: repeat(2, 1fr); } .metrics div:last-child { grid-column: 1 / -1; } }
+@media (max-width: 599px) { .grid { gap: 32px; } .photo { min-height: min(112vw, 520px); } .photo figcaption { inset-inline: 18px; bottom: 18px; } }

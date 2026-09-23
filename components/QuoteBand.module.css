@@ -2,4 +2,5 @@
 .track { width: max-content; display: flex; animation: marquee 28s linear infinite; }
 .track span { font-family: var(--font-display), serif; font-size: 34px; letter-spacing: .06em; white-space: nowrap; color: #c9c2b4; }
 @keyframes marquee { to { transform: translateX(-25%); } }
-@media (max-width: 520px) { .track span { font-size: 27px; } }
+@media (max-width: 599px) { .band { padding-block: 20px; } .track { animation-duration: 34s; } .track span { font-size: clamp(24px, 7vw, 29px); } }
+@media (prefers-reduced-motion: reduce) { .track { width: 100%; animation: none; overflow: hidden; } .track span { display: none; } .track span:first-child { display: block; width: max-content; } }

@@ -35,6 +35,13 @@ export function Header() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [open]);
 
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 1200px)');
+    const closeOnDesktop = () => { if (desktop.matches) setOpen(false); };
+    desktop.addEventListener('change', closeOnDesktop);
+    return () => desktop.removeEventListener('change', closeOnDesktop);
+  }, []);
+
   return (
     <header className={`${styles.header} ${compact ? styles.compact : ''}`}>
       <div className={`${shared.shell} ${styles.inner}`}>
@@ -47,28 +54,35 @@ export function Header() {
         </nav>
 
         <div className={styles.actions}>
-          <div className={styles.languageSwitch} aria-label={isRu ? 'Выбор языка' : 'Language'}>
+          <div className={styles.languageSwitch} role="group" aria-label={isRu ? 'Выбор языка' : 'Language'}>
             <button className={language === 'ru' ? styles.activeLanguage : ''} onClick={() => setLanguage('ru')} type="button">RU</button>
             <span>/</span>
             <button className={language === 'en' ? styles.activeLanguage : ''} onClick={() => setLanguage('en')} type="button">EN</button>
           </div>
           <a className={styles.cta} href="#collection">{isRu ? 'Коллекция' : 'Explore'} <ArrowUpRight size={16} /></a>
-          <button ref={menuButton} className={styles.menuButton} aria-label={open ? (isRu ? 'Закрыть меню' : 'Close menu') : (isRu ? 'Открыть меню' : 'Open menu')} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
+          <button ref={menuButton} className={styles.menuButton} type="button" aria-controls="mobile-menu" aria-label={open ? (isRu ? 'Закрыть меню' : 'Close menu') : (isRu ? 'Открыть меню' : 'Open menu')} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
             {open ? <X /> : <Menu />}
           </button>
         </div>
       </div>
 
-      {open && <div className={`${styles.mobileMenu} ${styles.mobileMenuOpen}`}>
+      <div
+        id="mobile-menu"
+        className={`${styles.mobileMenu} ${open ? styles.mobileMenuOpen : ''}`}
+        role="dialog"
+        aria-modal={open ? true : undefined}
+        aria-hidden={!open}
+        aria-label={isRu ? 'Меню' : 'Menu'}
+      >
         <div className={shared.shell}>
           <nav aria-label={isRu ? 'Мобильная навигация' : 'Mobile navigation'}>
             {navItems.map((item, index) => (
-              <a key={item.href} href={item.href} onClick={() => setOpen(false)}><span>0{index + 1}</span>{item.label}</a>
+              <a key={item.href} href={item.href} tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}><span>0{index + 1}</span>{item.label}</a>
             ))}
           </nav>
           <p>{isRu ? 'Премиальное питание для любопытных кошек.' : 'Premium nutrition for curious cats.'}</p>
         </div>
-      </div>}
+      </div>
     </header>
   );
 }
