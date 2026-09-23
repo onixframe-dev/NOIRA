@@ -45,14 +45,19 @@ export function PackCarousel({ gallery, title, accent = '#d8b16a' }: Props) {
   useEffect(() => {
     if (!modalOpen) return;
     const opener = stageRef.current;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
     const previousOverflow = document.body.style.overflow;
+    document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
+    window.dispatchEvent(new CustomEvent('noira:scroll-lock', { detail: true }));
     const focusTimer = window.requestAnimationFrame(() => closeButtonRef.current?.focus());
     const closeOnEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') setModalOpen(false); };
     window.addEventListener('keydown', closeOnEscape);
     return () => {
       window.cancelAnimationFrame(focusTimer);
+      document.documentElement.style.overflow = previousHtmlOverflow;
       document.body.style.overflow = previousOverflow;
+      window.dispatchEvent(new CustomEvent('noira:scroll-lock', { detail: false }));
       window.removeEventListener('keydown', closeOnEscape);
       opener?.focus();
     };

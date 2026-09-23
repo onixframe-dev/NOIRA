@@ -19,10 +19,17 @@ export function SmoothScroll() {
     });
 
     const update = (time: number) => lenis.raf(time * 1000);
+    const handleScrollLock = (event: Event) => {
+      const locked = (event as CustomEvent<boolean>).detail;
+      if (locked) lenis.stop();
+      else lenis.start();
+    };
     gsap.ticker.add(update);
     gsap.ticker.lagSmoothing(0);
+    window.addEventListener('noira:scroll-lock', handleScrollLock);
 
     return () => {
+      window.removeEventListener('noira:scroll-lock', handleScrollLock);
       gsap.ticker.remove(update);
       lenis.destroy();
     };
