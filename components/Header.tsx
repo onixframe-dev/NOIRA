@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { getSiteData } from '@/lib/site-data';
@@ -10,10 +11,13 @@ import styles from './Header.module.css';
 export function Header() {
   const [open, setOpen] = useState(false);
   const [compact, setCompact] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
   const { language, setLanguage } = useLanguage();
   const { navItems } = getSiteData(language);
   const isRu = language === 'ru';
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const onScroll = () => setCompact(window.scrollY > 24);
@@ -43,6 +47,7 @@ export function Header() {
   }, []);
 
   return (
+    <>
     <header className={`${styles.header} ${compact ? styles.compact : ''}`}>
       <div className={`${shared.shell} ${styles.inner}`}>
         <a className={styles.brand} href="#top" aria-label="NOIRA" onClick={() => setOpen(false)}>
@@ -66,7 +71,9 @@ export function Header() {
         </div>
       </div>
 
-      <div
+    </header>
+
+      {mounted && createPortal(<div
         id="mobile-menu"
         className={`${styles.mobileMenu} ${open ? styles.mobileMenuOpen : ''}`}
         role="dialog"
@@ -82,7 +89,7 @@ export function Header() {
           </nav>
           <p>{isRu ? 'Премиальное питание для любопытных кошек.' : 'Premium nutrition for curious cats.'}</p>
         </div>
-      </div>
-    </header>
+      </div>, document.body)}
+    </>
   );
 }
